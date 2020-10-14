@@ -42,10 +42,13 @@ def edit_post(request, pk):
             post = get_object_or_404(Post, pk=pk)
 
             post.text = cleaned_data['text']
+
             file = request.FILES.get('file', None)
+            post.file = file
             if file is not None:
                 post.upload_file(file)
 
+            post.save()
             return redirect('core:show_post', pk=pk)
     else:
         form = forms.PostContentForm()
@@ -56,3 +59,12 @@ def edit_post(request, pk):
 def show_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'core/details.html', {'post': post})
+
+
+def open_post(request):
+    form = forms.OpenPostForm(request.POST or None)
+    if form.is_valid():
+        keyword = form.cleaned_data['keyword']
+        return redirect('core:show_post', pk=keyword)
+    else:
+        return render(request, 'core/open_post.html', {'form': form})

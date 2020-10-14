@@ -16,3 +16,20 @@ class NewPostForm(forms.Form):
 
         if Post.objects.filter(pk=cleaned_data['keyword']).exists():
             raise ValidationError('Keyword already exists')
+
+
+class PostContentForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['text', 'file']
+
+
+class OpenPostForm(forms.Form):
+    keyword = forms.CharField(max_length=32, required=True)
+
+    def clean_keyword(self):
+        keyword = self.cleaned_data['keyword']
+        if not Post.objects.filter(pk=keyword).exists():
+            raise ValidationError('Invalid keywoard')
+        else:
+            return keyword
