@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.conf import settings
 
 from . import forms
 
@@ -41,7 +42,9 @@ def edit_post(request, pk):
             post = get_object_or_404(Post, pk=pk)
 
             post.text = cleaned_data['text']
-            post.upload_file(request.FILES['file'])
+            file = request.FILES.get('file', None)
+            if file is not None:
+                post.upload_file(file)
 
             return redirect('core:show_post', pk=pk)
     else:

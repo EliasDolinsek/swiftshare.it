@@ -38,3 +38,6 @@ class Post(models.Model):
         with open(file_path, 'wb+') as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
+
+    def __str__(self):
+        return self.keyword

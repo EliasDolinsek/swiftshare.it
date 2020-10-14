@@ -1,4 +1,14 @@
 {% extends 'core/base.html' %}
+{% block head %}
+    {{ post.media }}
+{% endblock %}
 {% block content %}
-    {{ post }}
+    <div>
+        {{ post.text|safe }}
+    </div>
+    {% if post.file %}
+        <div>
+            <a href="{{ post.file.url }}">Download File</a>
+        </div>
+    {% endif %}
 {% endblock %}
