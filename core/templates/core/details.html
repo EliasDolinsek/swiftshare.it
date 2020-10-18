@@ -1,14 +1,27 @@
 {% extends 'core/base.html' %}
+{% load static %}
 {% block head %}
-    {{ post.media }}
+    <style>
+        body {
+            background-image: url("{% static 'core/background.svg' %}");
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 {% endblock %}
 {% block content %}
-    <div>
-        {{ post.text|safe }}
+    <div class="container">
+        <h2 class="mt-4">{{ post.keyword }}</h2>
+        <p>Share: <a href="https://swiftshare.it/{{ post.keyword }}">swiftshare.it/{{ post.keyword }}</a></p>
+        <p>Available until {{ post.removal_date }}</p>
+        <textarea class="textarea form-control" rows="10" cols="40" readonly>{{ post.text|safe }}</textarea>
+        {% if post.file %}
+            <h4 class="mt-4">{{ post.get_filename }}</h4>
+            <p>{{ post.get_file_size }}</p>
+            <div>
+                <a href="{{ post.file.url }}">Download File</a>
+            </div>
+        {% endif %}
     </div>
-    {% if post.file %}
-        <div>
-            <a href="{{ post.file.url }}">Download File</a>
-        </div>
-    {% endif %}
 {% endblock %}

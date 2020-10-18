@@ -1,9 +1,23 @@
 {% extends 'core/base.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% block head %}
+    <style>
+        body {
+            background-image: url("{% static 'core/background.svg' %}");
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+{% endblock %}
 {% block content %}
-    <h1>New Post</h1>
-    <form action="{% url 'core:new_post' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="CREATE">
-    </form>
+    <div class="container">
+        <h2 class="mt-5">New Post</h2>
+        <form class="mt-4" action="{% url 'core:new_post' %}" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn swsh-button text-uppercase" type="submit" value="CREATE">
+        </form>
+    </div>
 {% endblock %}

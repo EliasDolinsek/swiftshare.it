@@ -1,8 +1,10 @@
+import datetime
 import os
 
 from django.db import models
 
 # Create your models here.
+
 from tinymce.models import HTMLField
 from django.conf import settings
 
@@ -11,7 +13,7 @@ class Post(models.Model):
     STORAGE_DURATIONS = (
         (0, '6h'),
         (1, '1d'),
-        (1, '7d')
+        (2, '7d')
     )
 
     keyword = models.CharField(primary_key=True, max_length=32, blank=False, null=False, unique=True)
@@ -20,8 +22,18 @@ class Post(models.Model):
     storage_duration = models.IntegerField(choices=STORAGE_DURATIONS, default=0)
     password = models.CharField(max_length=32, blank=True, null=False)
 
-    text = HTMLField()
+    text = models.TextField(max_length=100000, blank=True, default="")
     file = models.FileField(upload_to=f'files/{keyword}/', blank=True)
+
+    def removal_date(self):
+        return self.creation_date + self.get_timedelta_for_storage_duration()
+
+    def get_timedelta_for_storage_duration(self):
+        return (
+            datetime.timedelta(hours=6),
+            datetime.timedelta(days=1),
+            datetime.timedelta(days=7)
+        )[self.storage_duration]
 
     def password_enabled(self):
         return not self.password
@@ -41,3 +53,19 @@ class Post(models.Model):
 
     def __str__(self):
         return self.keyword
+
+    def get_filename(self):
+        return os.path.basename(self.file.name)
+
+    def get_file_size(self):
+        value = self.file.size
+        if value < 512000:
+            value = value / 1024.0
+            ext = 'kb'
+        elif value < 4194304000:
+            value = value / 1048576.0
+            ext = 'mb'
+        else:
+            value = value / 1073741824.0
+            ext = 'gb'
+        return '%s %s' % (str(round(value, 2)), ext)
