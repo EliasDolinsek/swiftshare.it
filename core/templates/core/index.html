@@ -1,6 +1,32 @@
 {% extends 'core/base.html' %}
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'core/index.css' %}">
+
+    <style>
+        body {
+            background-image: url("{% static 'core/background.svg' %}");
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
-    <h1>swiftshare.it</h1>
-    <button><a href="{% url 'core:new_post' %}">Create</a></button>
-    <button><a href="{% url 'core:open_post' %}">Open</a></button>
+    <div class="container mt-5">
+        <div class="row">
+            <h3 class="col text-left">swiftshare.it</h3>
+            <a href="https://eliasdolinsek.com" target="_blank" class="col text-right text-decoration-none text-body">
+                <h3>about</h3></a>
+        </div>
+    </div>
+    <div id="center-content" class="container col align-items-center">
+        <h1 class="text-center">Share anything. Without complicated links.</h1>
+        <h6 class="text-center">Namespaces and keywords to replace unreadable links</h6>
+        <div class="d-flex justify-content-center mt-4">
+            <a class="btn swsh-button text-uppercase mr-3" href="{% url 'core:new_post' %}">Create Post</a>
+            <a class="btn swsh-button text-uppercase" href="{% url 'core:open_post' %}">Open Post</a>
+        </div>
+    </div>
 {% endblock %}
