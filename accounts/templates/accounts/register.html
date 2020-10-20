@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container pt-5">
+        <div class="row" style="position: absolute; top: 40%; transform: translateY(-40%)">
+            <div class="col-6 pr-5 pt-5 pb-5">
+                {% include 'accounts/create-account-form.html' with form=form %}
+            </div>
+            <div class="col-6 pl-5 pt-5 pb-5">
+                {% include 'accounts/premium-features-card.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

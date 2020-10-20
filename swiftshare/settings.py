@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'core',
     'accounts',
     'tinymce',
+    'django_static_fontawesome',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -124,7 +125,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'bootstrap')
+    os.path.join(BASE_DIR, 'bootstrap'),
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'fontawesome')
 ]
 
 MEDIA_URL = '/media/'
