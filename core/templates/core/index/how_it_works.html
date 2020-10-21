@@ -1,0 +1,25 @@
+{% load static %}
+<div class="col-4">
+    <div style="border-radius: var(--swsh-border-radius); background-color: var(--primary-color)" class="h-100">
+        <div class="pt-5 pr-2">
+            {% include 'core/index/how_it_works_title.html' with number='1.' title="Enter your link" subtitle="Or let us do it automatically" %}
+        </div>
+        <img src="{% static 'core/images/index_share_link.svg' %}" alt="Share link" class="img-fluid p-5 mt-1">
+    </div>
+</div>
+<div class="col-4">
+    <div style="border-radius: var(--swsh-border-radius); background-color: var(--primary-color)" class="h-100">
+        <div class="pt-5 pr-2">
+            {% include 'core/index/how_it_works_title.html' with number='2.' title="Upload your content" subtitle="Add text and upload anything you want" %}
+        </div>
+        <img src="{% static 'core/images/index_upload.svg' %}" alt="Share link" class="img-fluid p-5 mt-1">
+    </div>
+</div>
+<div class="col-4">
+    <div style="border-radius: var(--swsh-border-radius); background-color: var(--primary-color)" class="h-100">
+        <div class="pt-5 pr-2">
+            {% include 'core/index/how_it_works_title.html' with number='3.' title="Share it" subtitle="...with an easy to remember link!" %}
+        </div>
+        <img src="{% static 'core/images/index_share_it.svg' %}" alt="Share link" class="img-fluid p-5 mt-1">
+    </div>
+</div>
