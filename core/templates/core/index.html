@@ -20,10 +20,10 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
+    <div class="container mt-0 mt-md-5">
         {% include 'core/nav/navbar.html' %}
-        <div class="row mt-5 mb-5">
-            <div class="col-7 align-self-center">
+        <div class="row mt-2 mt-md-5 mb-5">
+            <div class="col-12 col-md-7 align-self-center">
                 <h1 class="font-weight-bold">Want to share something, but without complicated links?</h1>
                 <h4>Sharing your things made easy!</h4>
                 <div class="row mt-3 ml-1">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-5">
+            <div class="col-12 col-md-5 mt-5 pt-md-0">
                 <img src="{% static 'core/images/index_main.svg' %}" alt="Representive image" class="img-fluid">
             </div>
         </div>
