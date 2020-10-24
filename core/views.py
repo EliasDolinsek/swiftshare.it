@@ -30,7 +30,7 @@ def new_post(request):
     else:
         form = forms.NewPostForm()
 
-    return render(request, 'core/new_post.html', {'form': form})
+    return render(request, 'core/new_post/new_post.html', {'form': form})
 
 
 def edit_post(request, pk):

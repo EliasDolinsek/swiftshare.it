@@ -28,10 +28,10 @@
                 <h4>Sharing your things made easy!</h4>
                 <div class="row mt-3 ml-1">
                     <div class="mr-3">
-                        <a href="{% url 'core:new_post' %} }}" class="btn swsh-button">SHARE</a>
+                        <a href="{% url 'core:new_post' %}" class="btn swsh-button">SHARE</a>
                     </div>
                     <div>
-                        <a href="{% url 'core:open_post' %} }}" class="btn swsh-button-outline">OPEN</a>
+                        <a href="{% url 'core:open_post' %}" class="btn swsh-button-outline">OPEN</a>
                     </div>
                 </div>
             </div>
@@ -39,8 +39,8 @@
                 <img src="{% static 'core/images/index_main.svg' %}" alt="Representive image" class="img-fluid">
             </div>
         </div>
-        <div class="row mt-5 pt-5 pb-5" style="background-color: var(--primary-color); border-radius: 5px;">
-            <h1 class="col text-center"><span style="color: rgba(255,255,255,0.7)">swsh.it/</span><span style="color: white;">your-keyword</span></h1>
+        <div class="mt-5 pt-5 pb-5">
+            {% include 'core/link_info.html'%}
         </div>
         <h2 class="row col mt-5">How it works</h2>
         <div class="row mt-4 mb-5">
