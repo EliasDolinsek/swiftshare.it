@@ -1,0 +1,16 @@
+{% extends 'accounts/account_details/account_details_base.html' %}
+{% block settings %}
+    {% if user_posts %}
+        <div class="list-group">
+            {% for post in user_posts %}
+                <a href="{% url 'core:show_post' pk=post.keyword %}" target="_blank"
+                   class="list-group-item list-group-item-action">{{ post.keyword }}</a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>
+            <h4>You haven't created any posts yet!</h4>
+            <a class="btn swsh-button-outline" href="{% url 'core:new_post' %}" target="_blank">CREATE FIRST POST</a>
+        </div>
+    {% endif %}
+{% endblock %}

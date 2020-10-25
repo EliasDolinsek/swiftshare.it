@@ -102,6 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = "/account/login/"
 # User Model
 AUTH_USER_MODEL = 'accounts.CustomUser'
 

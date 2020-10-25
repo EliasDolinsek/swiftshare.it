@@ -8,6 +8,8 @@ from django.db import models
 from tinymce.models import HTMLField
 from django.conf import settings
 
+from accounts.models import CustomUser
+
 
 class Post(models.Model):
     STORAGE_DURATIONS = (
@@ -16,6 +18,7 @@ class Post(models.Model):
         (2, '7d')
     )
 
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=True, null=True)
     keyword = models.CharField(primary_key=True, max_length=32, blank=False, null=False, unique=True)
     creation_date = models.DateTimeField(auto_now_add=True)
 

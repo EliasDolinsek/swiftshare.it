@@ -1,0 +1,23 @@
+<style>
+    .swsh-nav-link {
+        color: black;
+        font-weight: 500;
+    }
+
+    .swsh-nav-link:hover {
+        color: black;
+    }
+
+    #nav-bar-register {
+        color: var(--primary-color);
+    }
+</style>
+<ul class="navbar-nav">
+    <li class="nav-item">
+        <a class="swsh-nav-link nav-link text-uppercase" href="#">sign in</a>
+    </li>
+    <li class="nav-item">
+        <a id="nav-bar-register" class="swsh-nav-link nav-link text-uppercase"
+           href="{% url 'accounts:register' %}">register</a>
+    </li>
+</ul>

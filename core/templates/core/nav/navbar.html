@@ -6,31 +6,14 @@
     #swsh-navbar-brand:hover {
         color: var(--primary-color-dark);
     }
-
-    .swsh-nav-link {
-        color: black;
-        font-weight: 500;
-    }
-
-    .swsh-nav-link:hover {
-        color: black;
-    }
-
-    #nav-bar-register {
-        color: var(--primary-color);
-    }
 </style>
 <div>
     <nav class="container mt-3 navbar navbar-expand justify-content-between">
         <a id="swsh-navbar-brand" href="{% url 'core:index' %}" class="navbar-brand font-weight-bold">swiftshare.it</a>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="swsh-nav-link nav-link text-uppercase" href="#">sign in</a>
-            </li>
-            <li class="nav-item">
-                <a id="nav-bar-register" class="swsh-nav-link nav-link text-uppercase"
-                   href="{% url 'accounts:register' %}">register</a>
-            </li>
-        </ul>
+        {% if user.is_authenticated %}
+            {% include 'core/nav/logged_in_navbar_actions.html' %}
+        {% else %}
+            {% include 'core/nav/logged_out_navbar_actions.html' %}
+        {% endif %}
     </nav>
 </div>

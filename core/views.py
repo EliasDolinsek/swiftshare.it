@@ -3,8 +3,6 @@ import os
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.conf import settings
-from django.views import View
 
 from . import forms
 
@@ -25,8 +23,11 @@ def new_post(request):
             post = Post(
                 storage_duration=cleaned_data['storage_duration'],
                 keyword=cleaned_data['keyword'],
-                password=cleaned_data['password']
+                password=cleaned_data['password'],
             )
+
+            if request.user.is_authenticated:
+                post.user = request.user
 
             post.save()
             return HttpResponseRedirect(reverse('core:edit_post', kwargs={'pk': post.pk}))
