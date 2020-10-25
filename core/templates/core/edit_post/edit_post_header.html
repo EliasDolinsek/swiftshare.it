@@ -1,0 +1,16 @@
+<div class="row justify-content-between">
+    <div>
+        <h1 class="font-weight-bold" style="">{{ post.keyword }}</h1>
+        <p class="text-uppercase font-weight-bolder mb-0" style="color: var(--primary-color)">
+            {% if not post.password_enabled %}
+                <i class="fas fa-lock"></i> Password Enabled
+            {% else %}
+                <i class="fas fa-unlock"></i> No password required
+            {% endif %}
+        </p>
+        <h6 class="font-weight-bold">Available until {{ post.removal_date }}</h6>
+    </div>
+    <div>
+        <button class="btn swsh-button">SAVE AND SHARE</button>
+    </div>
+</div>

@@ -5,7 +5,7 @@ from .models import Post
 
 class NewPostForm(forms.Form):
     storage_duration = forms.ChoiceField(choices=Post.STORAGE_DURATIONS)
-    keyword = forms.CharField(max_length=32, required=True)
+    keyword = forms.CharField(max_length=16, required=True)
     password = forms.CharField(max_length=1024, required=False, widget=forms.PasswordInput(), label_suffix='(Optional)')
     confirm_password = forms.CharField(max_length=1024, required=False, widget=forms.PasswordInput())
 

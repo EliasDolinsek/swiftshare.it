@@ -1,0 +1,86 @@
+{% block head %}
+    <style>
+        @keyframes zoom-in-out {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        #{{ form.file.auto_id }}{
+            display: none;
+        }
+        .highlight {
+            animation-name: zoom-in-out;
+            animation-duration: 0.5s;
+            animation-fill-mode: forwards;
+        }
+    </style>
+{% endblock %}
+
+<div id="drop-area" class="swsh-card w-100 h-100 p-5">
+    <div id="drop-area-content">
+        <i class="fas fa-upload w-100 text-center" style="font-size: 4em; color: var(--primary-color-dark);"></i>
+        <h4 id="file-name-text" class="text-uppercase text-center font-weight-bold mt-3" style="color: white">Drag and
+            Drop your
+            files</h4>
+        <p id="file-name-max-size-text" class="text-center font-weight-bold" style="color: white;">Max 10MB</p>
+    </div>
+    {{ form.file }}
+</div>
+
+{% block js %}
+    <script>
+        let dropArea = document.getElementById("drop-area")
+        let dropAreaContent = document.getElementById("drop-area-content")
+
+        ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false)
+        })
+
+        function preventDefaults(e) {
+            e.preventDefault()
+            e.stopPropagation()
+        }
+
+        ;['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false)
+        })
+
+        ;['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false)
+        })
+
+        function highlight(e) {
+            dropAreaContent.classList.add('highlight')
+        }
+
+        function unhighlight(e) {
+            dropAreaContent.classList.remove('highlight')
+        }
+
+        dropArea.addEventListener('drop', handleDrop, false)
+
+        function handleDrop(e) {
+            e.preventDefault()
+            let files = e.dataTransfer.files
+
+            document.getElementById("{{ form.file.auto_id }}").files = files
+            displayFile(files[0])
+        }
+
+        function displayFile(file) {
+            let fileNameText = document.getElementById("file-name-text")
+            fileNameText.classList.remove("text-uppercase")
+            fileNameText.innerHTML = file.name
+            document.getElementById("file-name-max-size-text").innerText = file.type
+        }
+    </script>
+{% endblock %}
