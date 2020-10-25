@@ -1,4 +1,3 @@
-<h2 style="font-weight: 700;">Create new post</h2>
 {% block head %}
     <style>
         label {
@@ -6,6 +5,7 @@
         }
     </style>
 {% endblock %}
+<h2 class="font-weight-bold">Create new post</h2>
 <form method="post" class="mt-4">
     {% csrf_token %}
     {% if form.non_field_errors %}

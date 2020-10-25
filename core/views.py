@@ -76,7 +76,7 @@ def open_post(request):
         keyword = form.cleaned_data['keyword']
         return redirect('core:show_post', pk=keyword)
     else:
-        return render(request, 'core/open_post.html', {'form': form})
+        return render(request, 'core/open/open_post.html', {'form': form})
 
 
 def download(request, pk):

@@ -30,6 +30,6 @@ class OpenPostForm(forms.Form):
     def clean_keyword(self):
         keyword = self.cleaned_data['keyword']
         if not Post.objects.filter(pk=keyword).exists():
-            raise ValidationError('Invalid keywoard')
+            raise ValidationError('Invalid keyword')
         else:
             return keyword
