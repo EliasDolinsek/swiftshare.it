@@ -1,3 +1,10 @@
+<style>
+    #btn-share-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+</style>
 <div class="row justify-content-between">
     <div>
         <h1 class="font-weight-bold" style="">{{ post.keyword }}</h1>
@@ -10,7 +17,7 @@
         </p>
         <h6 class="font-weight-bold">Available until {{ post.removal_date }}</h6>
     </div>
-    <div>
-        <button class="btn swsh-button text-uppercase">SAVE AND SHARE</button>
+    <div id="btn-share-container">
+        <button class="btn swsh-button text-uppercase" style="display: inline-block">SAVE AND SHARE</button>
     </div>
 </div>

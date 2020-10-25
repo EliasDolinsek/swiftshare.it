@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+{% block navbar %}
+{% endblock %}
 {% block content %}
-    <div class="container pt-lg-5 mt-md-5 mt-3">
+    <div class="container mt-md-5 mt-1">
         <div class="row">
             <div class="col-lg-6 col-md-12 pr-lg-5 pt-lg-5 pb-lg-5">
                 {% include 'accounts/create-account-form.html' with form=form %}

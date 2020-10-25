@@ -10,27 +10,25 @@
         <button id="btn-copy-link" class="btn swsh-button text-uppercase" onclick="copyLinkToClipboard()">Copy link</button>
     </div>
 </div>
-{% block js %}
-    <script>
-        let btnCopyLink = document.getElementById("btn-copy-link")
+<script>
+    let btnCopyLink = document.getElementById("btn-copy-link")
 
-        function resetBtnCopyLinkText() {
-            btnCopyLink.innerHTML = "Copy Link"
-        }
+    function resetBtnCopyLinkText() {
+        btnCopyLink.innerHTML = "Copy Link"
+    }
 
-        btnCopyLink.addEventListener('mouseout', resetBtnCopyLinkText, false)
+    btnCopyLink.addEventListener('mouseout', resetBtnCopyLinkText, false)
 
-        function copyLinkToClipboard() {
-            let textArea = document.createElement("textarea")
-            textArea.value = "{{ post.get_link }}"
-            document.body.append(textArea)
+    function copyLinkToClipboard() {
+        let textArea = document.createElement("textarea")
+        textArea.value = "{{ post.get_link }}"
+        document.body.append(textArea)
 
-            textArea.select()
-            textArea.setSelectionRange(0, 99999)
+        textArea.select()
+        textArea.setSelectionRange(0, 99999)
 
-            document.execCommand("copy")
-            document.body.removeChild(textArea)
-            btnCopyLink.innerHTML = "<i class=\"fas fa-check\"></i> COPIED"
-        }
-    </script>
-{% endblock %}
+        document.execCommand("copy")
+        document.body.removeChild(textArea)
+        btnCopyLink.innerHTML = "<i class=\"fas fa-check\"></i> COPIED"
+    }
+</script>

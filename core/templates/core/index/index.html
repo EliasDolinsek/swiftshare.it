@@ -2,26 +2,10 @@
 {% block head %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'core/index.css' %}">
-    <style>
-        .swsh-nav-link {
-            color: black;
-            font-weight: 500;
-        }
-
-        .swsh-nav-link:hover {
-            color: black;
-            font-weight: bold;
-        }
-
-        #nav-bar-register {
-            color: var(--primary-color);
-        }
-    </style>
 {% endblock %}
 
 {% block content %}
     <div class="container mt-0 mt-md-5">
-        {% include 'core/nav/navbar.html' %}
         <div class="row mt-2 mt-md-5 mb-5">
             <div class="col-12 col-md-7 align-self-center">
                 <h1 class="font-weight-bold">Want to share something, but without complicated links?</h1>

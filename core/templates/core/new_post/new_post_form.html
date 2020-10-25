@@ -45,7 +45,7 @@
             <div>
                 {{ form.password.error }}
                 <label for="{{ form.password.id_for_label }}">Password</label>
-                <input type="password" class="form-control" id="{{ form.password.auto_id }}"
+                <input autocomplete="new-password" type="password" class="form-control" id="{{ form.password.auto_id }}"
                        name="{{ form.password.name }}" maxlength="{{ form.fields.password.max_length }}">
             </div>
             <div class="mt-3">

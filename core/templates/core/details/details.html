@@ -7,7 +7,8 @@
         <div class="mt-4 form-group">
             <div class="row justify-content-between mb-2">
                 <label class="font-weight-bold h4" for="post-text">Text</label>
-                <button id="btn-copy" class="btn swsh-button-outline" onclick="copyPostTestToClipboard()">COPY</button>
+                <button id="btn-copy" class="btn swsh-button-outline" onclick="copyPostTestToClipboard()">COPY TEXT
+                </button>
             </div>
             <div class="row">
                 <textarea name="{{ form.text.name }}" cols="40" rows="10" class="textarea form-control" id="post-text"
@@ -25,7 +26,7 @@
         let btnCopy = document.getElementById("btn-copy")
 
         function resetBtnCopyText() {
-            btnCopy.innerHTML = "COPY"
+            btnCopy.innerHTML = "COPY TEXT"
         }
 
         btnCopy.addEventListener('mouseout', resetBtnCopyText, false)
