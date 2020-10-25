@@ -1,4 +1,6 @@
-from django.http import HttpResponseRedirect
+import os
+
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.conf import settings
@@ -62,9 +64,10 @@ def edit_post(request, pk):
 
     return render(request, 'core/edit_post/edit_post.html', context)
 
+
 def show_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'core/details.html', {'post': post})
+    return render(request, 'core/details/details.html', {'post': post})
 
 
 def open_post(request):
@@ -74,3 +77,14 @@ def open_post(request):
         return redirect('core:show_post', pk=keyword)
     else:
         return render(request, 'core/open_post.html', {'form': form})
+
+
+def download(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    file_path = post.file.path
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404

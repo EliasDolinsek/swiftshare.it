@@ -1,0 +1,22 @@
+<a class="w-100 h-100" href="{% if post.file %}{% url 'core:download' pk=post.pk %}{% endif %}">
+    <div id="drop-area" class="swsh-card p-5">
+        <div id="drop-area-content">
+            <i class="fas fa-download w-100 text-center" style="font-size: 4em; color: var(--primary-color-dark);"></i>
+            <h4 id="file-name-text" class="text-center font-weight-bold mt-3" style="color: white">
+                {% if post.file %}
+                    {{ post.get_filename }}
+                {% else %}
+                    NO FILE ATTACHED
+                {% endif %}
+            </h4>
+            <p id="file-name-max-size-text" class="text-center font-weight-bold" style="color: white;">
+                {% if post.file %}
+                    {{ post.get_file_size }}
+                {% else %}
+                    empty
+                {% endif %}
+            </p>
+        </div>
+        {{ form.file }}
+    </div>
+</a>

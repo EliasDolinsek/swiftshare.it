@@ -6,7 +6,7 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% include 'core/edit_post/edit_post_header.html' %}
-            <div class="row mt-4 form-group w-100">
+            <div class="row mt-4 form-group">
                 <label class="font-weight-bold" for="{{ form.text.id_for_label }}">Text</label>
                 <textarea name="{{ form.text.name }}" cols="40" rows="10" maxlength="{{ form.fields.text.max_length }}"
                           class="textarea form-control w-100" id="{{ form.text.auto_id }}"

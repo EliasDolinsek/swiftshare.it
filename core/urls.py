@@ -7,6 +7,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('new/', new_post, name='new_post'),
     path('open/', open_post, name='open_post'),
-    path('edit/<str:pk>', edit_post, name='edit_post'),
-    path('<str:pk>/', show_post, name='show_post')
+    path('edit/<str:pk>/', edit_post, name='edit_post'),
+    path('<str:pk>/', show_post, name='show_post'),
+    path('download/<str:pk>/', download, name="download")
 ]

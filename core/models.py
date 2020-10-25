@@ -69,3 +69,6 @@ class Post(models.Model):
             value = value / 1073741824.0
             ext = 'gb'
         return '%s %s' % (str(round(value, 2)), ext)
+
+    def get_link(self):
+        return f"swsh.it/{self.keyword}"

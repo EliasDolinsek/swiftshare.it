@@ -1,0 +1,36 @@
+<div class="row justify-content-between">
+    <div>
+        <h1 class="font-weight-bold" style="">{{ post.keyword }}</h1>
+        <p id="link-text" class="font-weight-bolder mb-0" style="color: var(--primary-color)">
+            {{ post.get_link }}
+        </p>
+        <h6 class="font-weight-bold">Available until {{ post.removal_date }}</h6>
+    </div>
+    <div>
+        <button id="btn-copy-link" class="btn swsh-button text-uppercase" onclick="copyLinkToClipboard()">Copy link</button>
+    </div>
+</div>
+{% block js %}
+    <script>
+        let btnCopyLink = document.getElementById("btn-copy-link")
+
+        function resetBtnCopyLinkText() {
+            btnCopyLink.innerHTML = "Copy Link"
+        }
+
+        btnCopyLink.addEventListener('mouseout', resetBtnCopyLinkText, false)
+
+        function copyLinkToClipboard() {
+            let textArea = document.createElement("textarea")
+            textArea.value = "{{ post.get_link }}"
+            document.body.append(textArea)
+
+            textArea.select()
+            textArea.setSelectionRange(0, 99999)
+
+            document.execCommand("copy")
+            document.body.removeChild(textArea)
+            btnCopyLink.innerHTML = "<i class=\"fas fa-check\"></i> COPIED"
+        }
+    </script>
+{% endblock %}
