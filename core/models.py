@@ -11,6 +11,14 @@ from django.conf import settings
 from accounts.models import CustomUser
 
 
+class Namespace(models.Model):
+    name = models.CharField(max_length=32)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     STORAGE_DURATIONS = (
         (0, '6h'),
@@ -19,6 +27,8 @@ class Post(models.Model):
     )
 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=True, null=True)
+    namespace = models.ForeignKey(Namespace, on_delete=models.CASCADE, blank=True, null=True)
+
     keyword = models.CharField(primary_key=True, max_length=32, blank=False, null=False, unique=True)
     creation_date = models.DateTimeField(auto_now_add=True)
 

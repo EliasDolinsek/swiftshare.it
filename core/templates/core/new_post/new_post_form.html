@@ -1,3 +1,4 @@
+{% load crispy_forms_filters %}
 {% block head %}
     <style>
 
@@ -17,28 +18,35 @@
         </div>
     {% endif %}
     <h4 class="font-weight-bold">Basic setup</h4>
-    <div class="row mt-3">
-        <div class="form-group col-6">
-            {{ form.keyword.error }}
-            <label for="{{ form.keyword.id_for_label }}">Keyword*</label>
-            <input type="text" class="form-control" id="{{ form.keyword.auto_id }}" name="{{ form.keyword.name }}"
-                   maxlength="{{ form.fields.keyword.max_length }}" required>
-            <div class="mt-1">
-                {% include 'core/link_info_as_text.html' %}
+    <div class="mt-3">
+        <div class="row">
+            <div class="form-group col-6 mb-0">
+                {{ form.keyword.error }}
+                <label for="{{ form.keyword.id_for_label }}">Keyword*</label>
+                <input type="text" class="form-control" id="{{ form.keyword.auto_id }}" name="{{ form.keyword.name }}"
+                       maxlength="{{ form.fields.keyword.max_length }}" required>
+                <div class="mt-1">
+                    {% include 'core/link_info_as_text.html' %}
+                </div>
+            </div>
+            <div class="form-group col-6 mb-0">
+                {{ form.storage_duration.error }}
+                <label for="{{ form.storage_duration.id_for_label }}">Storage duration</label>
+                <select name="{{ form.storage_duration.html_name }}"
+                        id="{{ form.storage_duration.auto_id }}"
+                        class="form-control">
+                    {% for id, name in form.fields.storage_duration.choices %}
+                        <option value="{{ id }}"{% if form.fields.customer.value == id %}
+                                selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
-        <div class="form-group col-6">
-            {{ form.storage_duration.error }}
-            <label for="{{ form.storage_duration.id_for_label }}">Storage duration</label>
-            <select name="{{ form.storage_duration.html_name }}"
-                    id="{{ form.storage_duration.auto_id }}"
-                    class="form-control">
-                {% for id, name in form.fields.storage_duration.choices %}
-                    <option value="{{ id }}"{% if form.fields.customer.value == id %}
-                            selected{% endif %}>{{ name }}</option>
-                {% endfor %}
-            </select>
-        </div>
+        {% if user.is_authenticated %}
+            <div class="form-group">
+                {{ form.namespace|as_crispy_field }}
+            </div>
+        {% endif %}
     </div>
     <div class="mt-2">
         <h4>Optional</h4>

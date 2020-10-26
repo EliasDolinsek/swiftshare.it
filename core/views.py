@@ -7,7 +7,7 @@ from django.urls import reverse
 from . import forms
 
 # Create your views here.
-from .models import Post
+from .models import Post, Namespace
 
 
 def index(request):
@@ -16,7 +16,7 @@ def index(request):
 
 def new_post(request):
     if request.method == 'POST':
-        form = forms.NewPostForm(request.POST)
+        form = forms.NewPostForm(request.user, request.POST)
 
         if form.is_valid():
             cleaned_data = form.cleaned_data
@@ -24,6 +24,7 @@ def new_post(request):
                 storage_duration=cleaned_data['storage_duration'],
                 keyword=cleaned_data['keyword'],
                 password=cleaned_data['password'],
+                namespace=cleaned_data['namespace']
             )
 
             if request.user.is_authenticated:
@@ -32,7 +33,7 @@ def new_post(request):
             post.save()
             return HttpResponseRedirect(reverse('core:edit_post', kwargs={'pk': post.pk}))
     else:
-        form = forms.NewPostForm()
+        form = forms.NewPostForm(request.user)
 
     return render(request, 'core/new_post/new_post.html', {'form': form})
 

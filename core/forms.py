@@ -8,6 +8,17 @@ class NewPostForm(forms.Form):
     keyword = forms.CharField(max_length=16, required=True)
     password = forms.CharField(max_length=1024, required=False, widget=forms.PasswordInput(), label_suffix='(Optional)')
     confirm_password = forms.CharField(max_length=1024, required=False, widget=forms.PasswordInput())
+    namespace = forms.ChoiceField(choices=[], required=False)
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(NewPostForm, self).__init__(*args, **kwargs)
+
+        namespaces_as_choices = [("-----", None)]
+        for namespace in user.namespace_set.all():
+            namespaces_as_choices.append((str(namespace), namespace))
+
+        self.fields["namespace"].choices = namespaces_as_choices
 
     def clean(self):
         cleaned_data = super(NewPostForm, self).clean()
@@ -16,6 +27,12 @@ class NewPostForm(forms.Form):
 
         if Post.objects.filter(pk=cleaned_data['keyword']).exists():
             raise ValidationError('Keyword already exists')
+
+        return cleaned_data
+
+    def clean_namespace(self):
+        choices = self.fields["namespace"].choices
+        return dict(choices)[self.cleaned_data["namespace"]]
 
 
 class PostContentForm(forms.ModelForm):
