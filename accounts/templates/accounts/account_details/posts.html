@@ -1,10 +1,14 @@
 {% extends 'accounts/account_details/account_details_base.html' %}
 {% block settings %}
     {% if user_posts %}
+        <a class="btn swsh-button-outline mb-3" href="{% url 'core:new_post' %}" target="_blank">CREATE NEW POST</a>
         <div class="list-group">
             {% for post in user_posts %}
                 <a href="{% url 'core:show_post' pk=post.keyword %}" target="_blank"
-                   class="list-group-item list-group-item-action">{{ post.keyword }}</a>
+                   class="list-group-item list-group-item-action">
+                    <h5 class="mb-0 mt-1">{{ post.keyword }}</h5>
+                    <small class="mb-0 mb-1">Available until {{ post.removal_date }}</small>
+                </a>
             {% endfor %}
         </div>
     {% else %}
