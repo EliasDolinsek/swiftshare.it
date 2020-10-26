@@ -1,11 +1,10 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from core.models import Namespace
 from .forms import CustomUserCreationForm, PublicUserChangeForm, DeleteAccountForm, CreateNamespaceForm, \
-    UpdateNamespaceForm
+    UpdateNamespaceForm, CustomAuthenticationForm
 
 # Create your views here.
 from .models import CustomUser
@@ -16,11 +15,28 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("User created successfully")
+            return redirect("accounts:home")
     else:
         form = CustomUserCreationForm()
 
-    return render(request, 'accounts/register.html', context={'form': form})
+    return render(request, 'accounts/auth/register.html', context={'form': form})
+
+
+def login_user(request):
+    if request.user.is_authenticated:
+        return redirect("accounts:home")
+    if request.method == "POST":
+        form = CustomAuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            user = authenticate(email=cleaned_data["username"], password=cleaned_data["password"])
+            if user is not None:
+                login(request, user=user)
+                return redirect("accounts:home")
+    else:
+        form = CustomAuthenticationForm()
+
+    return render(request, "accounts/auth/login.html", context={"form": form})
 
 
 @login_required

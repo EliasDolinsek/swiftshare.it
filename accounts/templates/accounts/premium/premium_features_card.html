@@ -1,0 +1,23 @@
+<style>
+    label, input {
+        display: block;
+    }
+
+    .pricing-text {
+        line-height: 0.8em;
+        color: rgba(255, 255, 255, 0.7);
+    }
+</style>
+<div class="swsh-card h-100 container-fluid p-md-5 p-3 pt-5">
+    <h3 class="text-center text-uppercase" style="color: white; font-weight: 700;">Premium</h3>
+    <div class="mt-5"></div>
+    {% include 'accounts/premium/premium_feature_list_item.html' with title="Create your own namespace" subtitle="create up to ten namespaces with unlimited posts" %}
+    <div class="mt-5"></div>
+    {% include 'accounts/premium/premium_feature_list_item.html' with title="Unlimited storage duration" subtitle="create up to ten namespaces with unlimited posts" %}
+    <div class="mt-5"></div>
+    {% include 'accounts/premium/premium_feature_list_item.html' with title="Create your own namespace" subtitle="store posts inside your namespace unlimited" %}
+    <div class="text-center mt-5 pt-5">
+        <h6 class="pricing-text">4.99€ for three months</h6>
+        <h6 class="pricing-text">14.99€ for one year</h6>
+    </div>
+</div>

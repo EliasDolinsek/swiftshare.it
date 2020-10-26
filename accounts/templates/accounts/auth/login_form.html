@@ -1,0 +1,12 @@
+{% load crispy_forms_filters %}
+<style>
+    label {
+        font-weight: 700;
+    }
+</style>
+<h2 style="font-weight: 700;">Login</h2>
+<form action="{% url 'accounts:login' %}" method="post" class="mt-4">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="LOGIN" class="btn btn-primary swsh-button mt-3">
+</form>

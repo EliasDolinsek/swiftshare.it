@@ -30,5 +30,6 @@ urlpatterns = [
     path('settings/delete-account/success/', TemplateView.as_view(
         template_name="accounts/account_details/settings/delete_account/delete_account_success.html"),
          name="delete_account_success"),
-    path('register/', views.register, name="register")
+    path('register/', views.register, name="register"),
+    path('login/', views.login_user, name="login")
 ]
