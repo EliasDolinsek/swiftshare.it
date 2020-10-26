@@ -14,11 +14,12 @@ class NewPostForm(forms.Form):
         self.user = user
         super(NewPostForm, self).__init__(*args, **kwargs)
 
-        namespaces_as_choices = [("-----", None)]
-        for namespace in user.namespace_set.all():
-            namespaces_as_choices.append((str(namespace), namespace))
+        if user.is_authenticated:
+            namespaces_as_choices = [("-----", None)]
+            for namespace in user.namespace_set.all():
+                namespaces_as_choices.append((str(namespace), namespace))
 
-        self.fields["namespace"].choices = namespaces_as_choices
+            self.fields["namespace"].choices = namespaces_as_choices
 
     def clean(self):
         cleaned_data = super(NewPostForm, self).clean()
