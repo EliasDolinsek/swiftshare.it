@@ -81,11 +81,6 @@ def settings(request, **kwargs):
 
 
 @login_required
-def change_password_success(request):
-    return render(request, 'accounts/account_details/settings/change_password/change_password_success.html')
-
-
-@login_required
 def logout_user(request):
     logout(request)
     return redirect("core:index")
@@ -102,10 +97,6 @@ def delete_account(request):
         form = DeleteAccountForm(request.user)
 
     return render(request, 'accounts/account_details/settings/delete_account/delete_account.html', {"form": form})
-
-
-def delete_account_success(request):
-    return render(request, 'accounts/account_details/settings/delete_account/delete_account_success.html')
 
 
 @login_required
@@ -125,3 +116,13 @@ def namespace_details(request, name):
         "namespace_posts": namespace.post_set.all()
     }
     return render(request, 'accounts/account_details/namespaces/namespace_details.html', context)
+
+
+@login_required
+def delete_namespace(request, name):
+    namespace = get_object_or_404(Namespace, name=name)
+    if request.method == "POST":
+        namespace.delete()
+        return redirect("accounts:delete_namespace_success")
+    else:
+        return render(request, "accounts/account_details/namespaces/delete_namespace.html", {"namespace": namespace})

@@ -4,13 +4,19 @@
     <div class="container mt-md-4 mt-0">
         <h2>{{ namespace }}</h2>
         <div class="card mt-3">
-            <div class="card-header">Edit namespace</div>
+            <div class="card-header">Namespace actions</div>
             <div class="card-body">
                 <form method="post">
+                    <h5 class="card-title">Edit namespace</h5>
                     {% csrf_token %}
                     {{ form|crispy }}
                     <input class="btn swsh-button text-uppercase" type="submit" value="UPDATE">
                 </form>
+                <div class="mt-4">
+                    <h5 class="card-title">Delete namespace</h5>
+                    <p class="card-text">This will remove this namespace and all associated posts</p>
+                    <a href="{% url 'accounts:delete_namespace' name=namespace.name %}" class="btn btn-danger text-uppercase">DELETE</a>
+                </div>
             </div>
         </div>
         <div class="list-group mt-4">
