@@ -12,7 +12,7 @@
     <div class="container mt-4">
         <h2>Your Account</h2>
         <div class="row mt-4">
-            <div class="col-3">
+            <div class="col-md-3 col-12">
                 <div class="list-group" id="list-tab">
                     <a class="list-group-item list-group-item-action {% if 'posts' in request.path %}active-link{% endif %}"
                        id="list-home-list"
@@ -29,7 +29,7 @@
                        class="list-group-item list-group-item-action"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-md-9 col-12 mt-md-0 mt-4">
                 {% block settings %}
                 {% endblock %}
             </div>
