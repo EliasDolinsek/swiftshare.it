@@ -1,0 +1,27 @@
+{% extends 'accounts/account_details/account_details_base.html' %}
+{% load crispy_forms_filters %}
+{% block settings %}
+    {% if success_message %}
+        <div class="alert alert-success" role="alert">
+            {{ success_message }}
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn swsh-button" type="submit" value="UPDATE">
+    </form>
+    <div class="card mt-4">
+        <h5 class="card-header">Account actions</h5>
+        <div class="card-body">
+            <h5 class="card-title">Change your password</h5>
+            <p class="card-text">This will allow you to update your current password</p>
+            <a href="{% url 'accounts:change_password' %}" class="btn swsh-button-outline text-uppercase">CHANGE</a>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Delete your account</h5>
+            <p class="card-text">This will delete all your posts, namespaces and your subscriptions</p>
+            <a href="{% url 'accounts:delete_account' %}" class="btn btn-danger text-uppercase">DELETE</a>
+        </div>
+    </div>
+{% endblock %}

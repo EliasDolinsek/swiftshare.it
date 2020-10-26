@@ -10,16 +10,24 @@
 {% endblock %}
 {% block content %}
     <div class="container mt-4">
-        <h2 class="row">Your Account</h2>
+        <h2>Your Account</h2>
         <div class="row mt-4">
-            <div class="col-3 list-group" id="list-tab">
-                <a class="list-group-item list-group-item-action {% if 'posts' in request.path %}active-link{% endif %}"
-                   id="list-home-list"
-                   href="{% url 'accounts:posts' %}">Posts</a>
-                <a class="list-group-item list-group-item-action {% if 'namespaces' in request.path %}active-link{% endif %}" id="list-home-list"
-                   href="{% url 'accounts:namespaces' %}">Namespaces</a>
-                <a class="list-group-item list-group-item-action {% if 'settings' in request.path %}active-link{% endif %}" id="list-home-list"
-                   href="{% url 'accounts:settings' %}">Settings</a>
+            <div class="col-3">
+                <div class="list-group" id="list-tab">
+                    <a class="list-group-item list-group-item-action {% if 'posts' in request.path %}active-link{% endif %}"
+                       id="list-home-list"
+                       href="{% url 'accounts:posts' %}">Posts</a>
+                    <a class="list-group-item list-group-item-action {% if 'namespaces' in request.path %}active-link{% endif %}"
+                       id="list-home-list"
+                       href="{% url 'accounts:namespaces' %}">Namespaces</a>
+                    <a class="list-group-item list-group-item-action {% if 'settings' in request.path %}active-link{% endif %}"
+                       id="list-home-list"
+                       href="{% url 'accounts:settings' %}">Settings</a>
+                </div>
+                <div class="list-group mt-3">
+                    <a href="{% url 'accounts:logout_user' %}"
+                       class="list-group-item list-group-item-action"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
             </div>
             <div class="col-9">
                 {% block settings %}

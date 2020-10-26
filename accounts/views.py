@@ -1,8 +1,8 @@
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm, PublicUserChangeForm
-
+from .forms import CustomUserCreationForm, PublicUserChangeForm, DeleteAccountForm
 
 # Create your views here.
 from .models import CustomUser
@@ -38,12 +38,16 @@ def namespaces(request):
 
 
 @login_required
-def settings(request):
+def settings(request, **kwargs):
+    print(kwargs)
     user = request.user
+
+    success_message = ""
     if request.method == 'POST':
         form = PublicUserChangeForm(user, request.POST)
         if form.is_valid():
             form.save()
+            success_message = "Updated details successfully"
     else:
         initial_data = {
             'first_name': user.first_name,
@@ -51,4 +55,38 @@ def settings(request):
             'email': user.email
         }
         form = PublicUserChangeForm(user, initial=initial_data)
-    return render(request, 'accounts/account_details/settings.html', {'form': form})
+
+    context = {
+        "form": form,
+        "success_message": success_message
+    }
+
+    return render(request, 'accounts/account_details/settings/settings.html', context)
+
+
+@login_required
+def change_password_success(request):
+    return render(request, 'accounts/account_details/settings/change_password/change_password_success.html')
+
+
+@login_required
+def logout_user(request):
+    logout(request)
+    return redirect("core:index")
+
+
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        form = DeleteAccountForm(request.user, request.POST)
+        if form.is_valid():
+            request.user.delete()
+            return redirect('accounts:delete_account_success')
+    else:
+        form = DeleteAccountForm(request.user)
+
+    return render(request, 'accounts/account_details/settings/delete_account/delete_account.html', {"form": form})
+
+
+def delete_account_success(request):
+    return render(request, 'accounts/account_details/settings/delete_account/delete_account_success.html')
