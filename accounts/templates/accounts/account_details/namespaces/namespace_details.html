@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+    <div class="container mt-md-4 mt-0">
+        <h2>{{ namespace }}</h2>
+        <div class="card mt-3">
+            <div class="card-header">Edit namespace</div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input class="btn swsh-button text-uppercase" type="submit" value="UPDATE">
+                </form>
+            </div>
+        </div>
+        <div class="list-group mt-4">
+            {% for post in namespace_posts %}
+                <a href="{% url 'core:show_post' pk=post.keyword %}" target="_blank"
+                   class="list-group-item list-group-item-action">
+                    <h5 class="mb-0 mt-1">{{ post.keyword }}</h5>
+                    <small class="mb-0 mb-1">Available until {{ post.removal_date }}</small>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

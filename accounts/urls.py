@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('posts/', views.posts, name="posts"),
     path('namespaces/', views.namespaces, name="namespaces"),
+    path('namespaces/<str:name>', views.namespace_details, name="namespace_details"),
     path('settings/', views.settings, name="settings"),
     path('settings/change-password/',
          auth_views.PasswordChangeView.as_view(

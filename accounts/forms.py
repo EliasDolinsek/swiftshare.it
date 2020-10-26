@@ -82,3 +82,18 @@ class CreateNamespaceForm(forms.ModelForm):
         model.user = self.user
         if commit:
             model.save()
+
+
+class UpdateNamespaceForm(forms.Form):
+    name = forms.CharField(max_length=32)
+
+    def __init__(self, namespace, *args, **kwargs):
+        self.namespace = namespace
+        super(UpdateNamespaceForm, self).__init__(*args, **kwargs)
+
+    def clean_name(self):
+        cleaned_name = self.cleaned_data["name"]
+        filtered_namespaces = Namespace.objects.filter(name__exact=cleaned_name)
+        if filtered_namespaces.exists() and filtered_namespaces[0] != self.namespace:
+            raise ValidationError("Namespace with this Name already exists")
+        return cleaned_name

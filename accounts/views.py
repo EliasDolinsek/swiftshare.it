@@ -1,8 +1,11 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm, PublicUserChangeForm, DeleteAccountForm, CreateNamespaceForm
+from django.shortcuts import render, redirect, get_object_or_404
+
+from core.models import Namespace
+from .forms import CustomUserCreationForm, PublicUserChangeForm, DeleteAccountForm, CreateNamespaceForm, \
+    UpdateNamespaceForm
 
 # Create your views here.
 from .models import CustomUser
@@ -47,7 +50,7 @@ def namespaces(request):
         "form": form,
         "namespaces": user_namespaces
     }
-    return render(request, 'accounts/account_details/namespaces.html', context)
+    return render(request, 'accounts/account_details/namespaces/namespaces.html', context)
 
 
 @login_required
@@ -103,3 +106,22 @@ def delete_account(request):
 
 def delete_account_success(request):
     return render(request, 'accounts/account_details/settings/delete_account/delete_account_success.html')
+
+
+@login_required
+def namespace_details(request, name):
+    namespace = get_object_or_404(Namespace, name=name)
+    if request.method == "POST":
+        form = UpdateNamespaceForm(namespace, request.POST)
+        if form.is_valid():
+            namespace.name = form.cleaned_data["name"]
+            namespace.save()
+    else:
+        form = UpdateNamespaceForm(namespace)
+
+    context = {
+        "form": form,
+        "namespace": namespace,
+        "namespace_posts": namespace.post_set.all()
+    }
+    return render(request, 'accounts/account_details/namespaces/namespace_details.html', context)
