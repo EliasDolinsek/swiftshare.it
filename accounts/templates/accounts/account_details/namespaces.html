@@ -1,3 +1,31 @@
 {% extends 'accounts/account_details/account_details_base.html' %}
+{% load crispy_forms_filters %}
 {% block settings %}
+    <div class="card">
+        <div class="card-header">
+            Create new namespace
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input class="btn swsh-button-outline text-uppercase" type="submit" value="CREATE">
+            </form>
+        </div>
+    </div>
+    <div class="list-group mt-3 mb-5">
+        {% for namespace in namespaces reversed %}
+            <a href="#" class="list-group-item list-group-item-action">
+                <h5 class="mb-0 mt-1">{{ namespace.name }}</h5>
+                <small class="mb-0 mb-1">
+                    {{ namespace.get_post_count }}
+                    {% if namespace.get_post_count == 1 %}
+                        post
+                    {% else %}
+                        posts
+                    {% endif %}
+                </small>
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}

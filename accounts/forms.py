@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django import forms
 
 from accounts.models import CustomUser
+from core.models import Namespace
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -64,3 +65,20 @@ class DeleteAccountForm(forms.Form):
             return cleaned_password
         else:
             raise ValidationError("Invalid password")
+
+
+class CreateNamespaceForm(forms.ModelForm):
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(CreateNamespaceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Namespace
+        fields = ("name",)
+
+    def save(self, commit=True):
+        model = super(CreateNamespaceForm, self).save(commit=False)
+        model.user = self.user
+        if commit:
+            model.save()

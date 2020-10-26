@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm, PublicUserChangeForm, DeleteAccountForm
+from .forms import CustomUserCreationForm, PublicUserChangeForm, DeleteAccountForm, CreateNamespaceForm
 
 # Create your views here.
 from .models import CustomUser
@@ -34,7 +34,20 @@ def posts(request):
 
 @login_required
 def namespaces(request):
-    return render(request, 'accounts/account_details/namespaces.html')
+    if request.method == "POST":
+        form = CreateNamespaceForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            form = CreateNamespaceForm(request.user)
+    else:
+        form = CreateNamespaceForm(request.user)
+
+    user_namespaces = request.user.namespace_set.all()
+    context = {
+        "form": form,
+        "namespaces": user_namespaces
+    }
+    return render(request, 'accounts/account_details/namespaces.html', context)
 
 
 @login_required

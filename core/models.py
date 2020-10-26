@@ -12,11 +12,15 @@ from accounts.models import CustomUser
 
 
 class Namespace(models.Model):
-    name = models.CharField(max_length=32)
+    name = models.CharField(max_length=32, unique=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
+    def get_post_count(self):
+        posts = Post.objects.filter(namespace=self)
+        return len(posts)
 
 
 class Post(models.Model):
