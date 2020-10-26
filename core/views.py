@@ -67,8 +67,17 @@ def edit_post(request, pk):
     return render(request, 'core/edit_post/edit_post.html', context)
 
 
-def show_post(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+def show_post_no_namespace(request, pk):
+    post = get_object_or_404(Post, pk=pk, namespace=None)
+    return render(request, 'core/details/details.html', {'post': post})
+
+
+def show_post_namespace(request, pk, namespace_name):
+    posts_filter = Post.objects.filter(pk=pk, namespace__name=namespace_name)
+    if not posts_filter.exists():
+        raise Http404
+
+    post = posts_filter[0]
     return render(request, 'core/details/details.html', {'post': post})
 
 
@@ -76,7 +85,7 @@ def open_post(request):
     form = forms.OpenPostForm(request.POST or None)
     if form.is_valid():
         keyword = form.cleaned_data['keyword']
-        return redirect('core:show_post', pk=keyword)
+        return redirect('core:show_post_no_namespace', pk=keyword)
     else:
         return render(request, 'core/open/open_post.html', {'form': form})
 

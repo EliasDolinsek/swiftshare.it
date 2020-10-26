@@ -21,7 +21,7 @@
         </div>
         <div class="list-group mt-4">
             {% for post in namespace_posts %}
-                <a href="{% url 'core:show_post' pk=post.keyword %}" target="_blank"
+                <a href="{% url 'core:show_post_namespace' pk=post.keyword namespace_name=post.namespace.name %}" target="_blank"
                    class="list-group-item list-group-item-action">
                     <h5 class="mb-0 mt-1">{{ post.keyword }}</h5>
                     <small class="mb-0 mb-1">Available until {{ post.removal_date }}</small>

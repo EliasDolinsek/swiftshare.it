@@ -4,7 +4,14 @@
         <a class="btn swsh-button-outline mb-3" href="{% url 'core:new_post' %}" target="_blank">CREATE NEW POST</a>
         <div class="list-group">
             {% for post in user_posts %}
-                <a href="{% url 'core:show_post' pk=post.keyword %}" target="_blank"
+                <a href="
+                        {% if post.namespace %}
+                            {% url 'core:show_post_namespace' pk=post.keyword namespace_name=post.namespace.name %}
+                        {% else %}
+                            {% url 'core:show_post_no_namespace' pk=post.keyword %}
+                        {% endif %}
+                        "
+                   target="_blank"
                    class="list-group-item list-group-item-action">
                     <h5 class="mb-0 mt-1">{{ post.keyword }}</h5>
                     <small class="mb-0 mb-1">Available until {{ post.removal_date }}</small>

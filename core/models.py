@@ -88,4 +88,7 @@ class Post(models.Model):
         return '%s %s' % (str(round(value, 2)), ext)
 
     def get_link(self):
-        return f"swsh.it/{self.keyword}"
+        if self.namespace:
+            return f"swsh.it/{self.namespace.name}/{self.keyword}"
+        else:
+            return f"swsh.it/{self.keyword}"
