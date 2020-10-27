@@ -8,5 +8,5 @@
 <form action="{% url 'accounts:login' %}" method="post" class="mt-4">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="LOGIN" class="btn btn-primary btn-primary mt-3">
+    <input type="submit" value="LOGIN" class="btn btn-primary btn-lg btn-block">
 </form>

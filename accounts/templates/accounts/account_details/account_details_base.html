@@ -1,26 +1,17 @@
 {% extends 'base.html' %}
-{% block head %}
-    <style>
-        .active-link {
-            background-color: var(--primary-color);
-            font-weight: bold;
-            color: white;
-        }
-    </style>
-{% endblock %}
 {% block content %}
     <div class="container mt-4 mb-5">
         <h2>Your Account</h2>
         <div class="row mt-4">
             <div class="col-md-3 col-12">
                 <div class="list-group" id="list-tab">
-                    <a class="list-group-item list-group-item-action {% if 'posts' in request.path %}active-link{% endif %}"
+                    <a class="list-group-item list-group-item-action {% if 'posts' in request.path %}active{% endif %}"
                        id="list-home-list"
                        href="{% url 'accounts:posts' %}">Posts</a>
-                    <a class="list-group-item list-group-item-action {% if 'namespaces' in request.path %}active-link{% endif %}"
+                    <a class="list-group-item list-group-item-action {% if 'namespaces' in request.path %}active{% endif %}"
                        id="list-home-list"
                        href="{% url 'accounts:namespaces' %}">Namespaces</a>
-                    <a class="list-group-item list-group-item-action {% if 'settings' in request.path %}active-link{% endif %}"
+                    <a class="list-group-item list-group-item-action {% if 'settings' in request.path %}active{% endif %}"
                        id="list-home-list"
                        href="{% url 'accounts:settings' %}">Settings</a>
                 </div>
