@@ -147,3 +147,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 COMPRESS_ENABLED = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))

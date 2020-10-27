@@ -1,12 +1,12 @@
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.contrib.auth.forms import PasswordResetForm
 from django.shortcuts import render, redirect, get_object_or_404
 
 from core.models import Namespace
 from .forms import CustomUserCreationForm, PublicUserChangeForm, DeleteAccountForm, CreateNamespaceForm, \
     UpdateNamespaceForm, CustomAuthenticationForm
-
+from .email_helper import send_password_reset_email
 # Create your views here.
 from .models import CustomUser
 
@@ -149,3 +149,18 @@ def delete_namespace(request, name):
         return redirect("accounts:delete_namespace_success")
     else:
         return render(request, "accounts/account_details/namespaces/delete_namespace.html", {"namespace": namespace})
+
+
+def password_reset_request(request):
+    if request.method == "POST":
+        password_reset_form = PasswordResetForm(request.POST)
+        if password_reset_form.is_valid():
+            data = password_reset_form.cleaned_data['email']
+            associated_users = CustomUser.objects.filter(email=data)
+            if associated_users.exists():
+                for user in associated_users:
+                    send_password_reset_email(user)
+            return redirect("accounts:password_reset_done")
+    else:
+        password_reset_form = PasswordResetForm()
+    return render(request, "accounts/password_reset/password_reset.html", {"password_reset_form": password_reset_form})
