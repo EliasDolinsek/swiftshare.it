@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'tinymce',
     'django_static_fontawesome',
     'crispy_forms',
+    'compressor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,11 +129,21 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'bootstrap'),
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'fontawesome'),
-    os.path.join(BASE_DIR, 'jQuery-file-upload')
+    os.path.join(BASE_DIR, 'fontawesome')
 ]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder'
+]
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+COMPRESS_ENABLED = True

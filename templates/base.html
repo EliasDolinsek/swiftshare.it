@@ -1,6 +1,8 @@
+{% load compress %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 <head>
 
     <meta charset="UTF-8">
@@ -10,8 +12,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    {% compress css %}
+        <link type="text/x-scss" href="{% static 'bootstrap/bootstrap.scss' %}" rel="stylesheet" media="screen">
+        <link type="text/x-scss" href="{% static 'scss/custom.scss' %}" rel="stylesheet" media="screen">
+    {% endcompress %}
     <link rel="stylesheet" href="{% static 'base.css' %}">
 
     <script src="{% static 'fontawesome/js/all.js' %}"></script>
@@ -29,7 +33,8 @@
 {% endblock %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 
 {% block js %}
 {% endblock %}

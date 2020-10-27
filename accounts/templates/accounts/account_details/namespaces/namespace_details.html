@@ -2,7 +2,8 @@
 {% load crispy_forms_filters %}
 {% block content %}
     <div class="container mt-md-4 mt-0">
-        <h2>{{ namespace }}</h2>
+        <h2><a href="{% url 'accounts:namespaces' %}"><i class="fas fa-arrow-left"
+                                                         style="color: black; font-size: 80%"></i></a> {{ namespace }}</h2>
         <div class="card mt-3">
             <div class="card-header">Namespace actions</div>
             <div class="card-body">
@@ -10,18 +11,20 @@
                     <h5 class="card-title">Edit namespace</h5>
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <input class="btn swsh-button text-uppercase" type="submit" value="UPDATE">
+                    <input class="btn btn-primary text-uppercase" type="submit" value="UPDATE">
                 </form>
                 <div class="mt-4">
                     <h5 class="card-title">Delete namespace</h5>
                     <p class="card-text">This will remove this namespace and all associated posts</p>
-                    <a href="{% url 'accounts:delete_namespace' name=namespace.name %}" class="btn btn-danger text-uppercase">DELETE</a>
+                    <a href="{% url 'accounts:delete_namespace' name=namespace.name %}"
+                       class="btn btn-danger text-uppercase">DELETE</a>
                 </div>
             </div>
         </div>
         <div class="list-group mt-4">
             {% for post in namespace_posts %}
-                <a href="{% url 'core:show_post_namespace' pk=post.keyword namespace_name=post.namespace.name %}" target="_blank"
+                <a href="{% url 'core:show_post_namespace' pk=post.keyword namespace_name=post.namespace.name %}"
+                   target="_blank"
                    class="list-group-item list-group-item-action">
                     <h5 class="mb-0 mt-1">{{ post.keyword }}</h5>
                     <small class="mb-0 mb-1">Available until {{ post.removal_date }}</small>

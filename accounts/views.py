@@ -1,5 +1,6 @@
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
 from core.models import Namespace
@@ -117,12 +118,18 @@ def delete_account(request):
 
 @login_required
 def namespace_details(request, name):
-    namespace = get_object_or_404(Namespace, name=name)
+    try:
+        namespace = Namespace.objects.get(name__exact=name)
+    except Namespace.DoesNotExist:
+        return redirect("accounts:namespaces")
+
     if request.method == "POST":
         form = UpdateNamespaceForm(namespace, request.POST)
         if form.is_valid():
-            namespace.name = form.cleaned_data["name"]
+            new_namespace_name = form.cleaned_data["name"]
+            namespace.name = new_namespace_name
             namespace.save()
+            return redirect("accounts:namespace_details", name=new_namespace_name, permanent=True)
     else:
         form = UpdateNamespaceForm(namespace)
 

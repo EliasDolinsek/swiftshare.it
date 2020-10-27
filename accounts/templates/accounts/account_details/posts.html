@@ -1,7 +1,7 @@
 {% extends 'accounts/account_details/account_details_base.html' %}
 {% block settings %}
     {% if user_posts %}
-        <a class="btn swsh-button-outline mb-3" href="{% url 'core:new_post' %}" target="_blank">CREATE NEW POST</a>
+        <a class="btn btn-outline-primary mb-3" href="{% url 'core:new_post' %}" target="_blank">CREATE NEW POST</a>
         <div class="list-group">
             {% for post in user_posts %}
                 <a href="
@@ -21,7 +21,7 @@
     {% else %}
         <div>
             <h4>You haven't created any posts yet!</h4>
-            <a class="btn swsh-button-outline" href="{% url 'core:new_post' %}" target="_blank">CREATE FIRST POST</a>
+            <a class="btn btn-outline-primary" href="{% url 'core:new_post' %}" target="_blank">CREATE FIRST POST</a>
         </div>
     {% endif %}
 {% endblock %}
